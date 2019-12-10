@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  alpine-base-hobo:
+    image: REGISTRY_BASE_URL/alpine-base:latest
+    hostname: 'hobo'
+    environment:
+      - "domainname=idocker.REALM_DOMAIN_SUFFIX"
+    labels:
+      - "traefik.port=4200"
+      - "traefik.frontend.rule=Host:hobo.REALM_DOMAIN_SUFFIX"
+      - "traefik.protocol=http"
+    env_file:
+      - ./UUID.env
+    volumes:
+      - ./UUID.gn:/goldnugget/UUID.gn
+      - ./flag-deploy-scripts:/flag-deploy-scripts
+
+      
