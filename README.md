@@ -70,6 +70,7 @@ Content of UUID.gn (do not change this!!!)
 ```
 ibuetler@demide:~/Repository/alpine-base-example$ cat 6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn
 GOLDNUGGET=SED_GOLDNUGGET
+```
 
 Content of `flag-deploy-scripts` folder
 * deploy-env-flag.sh = your code how you want to deploy the flag in the CTF docker
