@@ -9,13 +9,13 @@ This is the alpine base image of the Hacking-Lab CTF system
 * with dynamic ctf flag handling in `files`
 
 
-## Template DEVELOPMENT docker-compose.yml for Hacking-Lab 2.0 CTF
+## Template `docker-compose.yml`
 ```
 version: '3.4'
 
 services:
   alpine-base:
-    image: ibuetler/alpine-base:latest
+    image: hackinglab/alpine-base:latest
     hostname: 'alpine-base'
     env_file:
       - ./UUID.env
@@ -24,46 +24,58 @@ services:
       - ./flag-deploy-scripts:/flag-deploy-scripts
 ```
 
-## WORKING DEVELOPMENT docker-compose.yml for Hacking-Lab 2.0 CTF
+## TESTING `alpine-base-example`
+* UUID = 6db3a534-70eb-40e5-8d6f-9839b46b53fb
+* example subfolder in ./alpine-base/alpine-base-example
+
 ```
+root@demide:/home/ibuetler/Repository/alpine-base# cd alpine-base-example/
+
+root@demide:/home/ibuetler/Repository/alpine-base/alpine-base-example# ls -al 
+total 32
+drwxr-xr-x 4 ibuetler ibuetler 4096 Dez 10 10:12 .
+drwxr-xr-x 6 ibuetler ibuetler 4096 Dez 10 16:50 ..
+-rw-r--r-- 1 ibuetler ibuetler   26 Dez 10 09:58 6db3a534-70eb-40e5-8d6f-9839b46b53fb.env
+-rw-r--r-- 1 ibuetler ibuetler   26 Dez 10 09:58 6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn
+-rw-r--r-- 1 ibuetler ibuetler  341 Dez 10 10:12 docker-compose.yml
+-rw-r--r-- 1 ibuetler ibuetler  885 Dez 10 09:58 Dockerfile
+drwx------ 2 ibuetler ibuetler 4096 Dez 10 09:58 flag-deploy-scripts
+drwxr-xr-x 5 ibuetler ibuetler 4096 Dez 10 09:58 root
+```
+
+Content of `docker-compose.yml` with a real UUID
+```
+root@demide:/home/ibuetler/Repository/alpine-base/alpine-base-example# cat docker-compose.yml 
 version: '3.4'
 
 services:
   alpine-base:
-    image: ibuetler/alpine-base:latest
+    image: hackinglab/alpine-base:latest
     hostname: 'alpine-base'
     env_file:
       - ./6db3a534-70eb-40e5-8d6f-9839b46b53fb.env
     volumes:
-      - ./6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn:/goldnugget/UUID.gn
+      - ./6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn:/goldnugget/6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn
       - ./flag-deploy-scripts:/flag-deploy-scripts
-```
-
-## Building DEVELOPMENT release of alpine-base 
-* UUID = 6db3a534-70eb-40e5-8d6f-9839b46b53fb
 
 ```
-ibuetler@demide:~/Repository/alpine-base-example$ ls -al 
-total 32
-drwxr-xr-x  4 ibuetler ibuetler 4096 Dez 10 09:59 .
-drwxr-xr-x 24 ibuetler ibuetler 4096 Dez 10 09:58 ..
--rw-r--r--  1 ibuetler ibuetler   26 Dez 10 09:58 6db3a534-70eb-40e5-8d6f-9839b46b53fb.env
--rw-r--r--  1 ibuetler ibuetler   26 Dez 10 09:58 6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn
--rw-r--r--  1 ibuetler ibuetler  306 Dez 10 10:04 docker-compose.yml
--rw-r--r--  1 ibuetler ibuetler  885 Dez 10 09:58 Dockerfile
-drwx------  2 ibuetler ibuetler 4096 Dez 10 09:58 flag-deploy-scripts
-drwxr-xr-x  5 ibuetler ibuetler 4096 Dez 10 09:58 root
-```
 
-Content of the files gn, env, and directory flag-deploy-scripts
-
+Content of UUID.env (do not change this!!!)
 ```
 ibuetler@demide:~/Repository/alpine-base-example$ cat 6db3a534-70eb-40e5-8d6f-9839b46b53fb.env 
 GOLDNUGGET=SED_GOLDNUGGET
+```
 
+Content of UUID.gn (do not change this!!!)
+```
 ibuetler@demide:~/Repository/alpine-base-example$ cat 6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn
 GOLDNUGGET=SED_GOLDNUGGET
 
+Content of `flag-deploy-scripts` folder
+* deploy-env-flag.sh = your code how you want to deploy the flag in the CTF docker
+* deploy-file-flag.sh = your code how you want to deploy the flag in the CTF docker
+
+```
 ibuetler@demide:~/Repository/alpine-base-example$ ls -al flag-deploy-scripts/
 total 16
 drwx------ 2 ibuetler ibuetler 4096 Dez 10 09:58 .
@@ -72,9 +84,10 @@ drwxr-xr-x 4 ibuetler ibuetler 4096 Dez 10 09:59 ..
 -rwx------ 1 ibuetler ibuetler   90 Dez 10 09:58 deploy-file-flag.sh
 ```
 
+
 ## BUILDING with `docker build`
 ```
-root@demide:/home/ibuetler/Repository/alpine-base-example# docker build -t hackinglab/alpine-base  .
+root@demide:/home/ibuetler/Repository/alpine-base/alpine-base-example# docker build -t hackinglab/alpine-base  .
 Sending build context to Docker daemon  23.04kB
 Step 1/11 : FROM alpine:latest
  ---> 965ea09ff2eb
@@ -115,7 +128,7 @@ Successfully tagged hackinglab/alpine-base:latest
 
 ## TESTING docker-compose.yml using `docker-compose config`
 ```
-root@demide:/home/ibuetler/Repository/alpine-base-example# docker-compose config
+root@demide:/home/ibuetler/Repository/alpine-base/alpine-base-example# docker-compose config
 services:
   alpine-base:
     environment:
@@ -123,15 +136,15 @@ services:
     hostname: alpine-base
     image: hackinglab/alpine-base:latest
     volumes:
-    - /home/ibuetler/Repository/alpine-base-example/6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn:/goldnugget/6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn:rw
-    - /home/ibuetler/Repository/alpine-base-example/flag-deploy-scripts:/flag-deploy-scripts:rw
+    - /home/ibuetler/Repository/alpine-base/alpine-base-example/6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn:/goldnugget/6db3a534-70eb-40e5-8d6f-9839b46b53fb.gn:rw
+    - /home/ibuetler/Repository/alpine-base/alpine-base-example/flag-deploy-scripts:/flag-deploy-scripts:rw
 version: '3.4'
 ```
 
 ## RUNNING container using `docker-compose up`
 ```
-root@demide:/home/ibuetler/Repository/alpine-base-example# docker-compose up
-Starting alpine-base-example_alpine-base_1 ... done
+root@demide:/home/ibuetler/Repository/alpine-base/alpine-base-example# docker-compose up
+Recreating alpine-base-example_alpine-base_1 ... done
 Attaching to alpine-base-example_alpine-base_1
 alpine-base_1  | [s6-init] making user provided files available at /var/run/s6/etc...exited 0.
 alpine-base_1  | [s6-init] ensuring user provided files have correct perms...exited 0.
@@ -145,7 +158,6 @@ alpine-base_1  | =================================
 alpine-base_1  | 
 alpine-base_1  | =================================
 alpine-base_1  | USERNAME not defined - will use default username hacker
-alpine-base_1  | adduser: user 'hacker' in use
 alpine-base_1  | chpasswd: password for 'root' changed
 alpine-base_1  | chpasswd: password for 'hacker' changed
 alpine-base_1  | 
