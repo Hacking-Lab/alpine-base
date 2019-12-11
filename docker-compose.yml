@@ -7,7 +7,7 @@ services:
     environment:
       - "domainname=idocker.REALM_DOMAIN_SUFFIX"
     labels:
-      - "traefik.port=4200"
+      - "traefik.port=80"
       - "traefik.frontend.rule=Host:hobo.REALM_DOMAIN_SUFFIX"
       - "traefik.protocol=http"
     env_file:
