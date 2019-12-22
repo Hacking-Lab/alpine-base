@@ -14,6 +14,5 @@ services:
       - ./UUID.env
     volumes:
       - ./UUID.gn:/goldnugget/UUID.gn
-      - ./flag-deploy-scripts:/flag-deploy-scripts
 
       
