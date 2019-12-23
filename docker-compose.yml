@@ -11,8 +11,8 @@ services:
       - "traefik.frontend.rule=Host:hobo.REALM_DOMAIN_SUFFIX"
       - "traefik.protocol=http"
     env_file:
-      - ./UUID.env
+      - ./UUID-hobo.env
     volumes:
-      - ./UUID.gn:/goldnugget/UUID.gn
+      - ./UUID-hobo.gn:/goldnugget/UUID-hobo.gn
 
       
