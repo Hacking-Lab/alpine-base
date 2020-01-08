@@ -61,4 +61,7 @@ User gid:    $(id -g $HL_USER_USERNAME)
 -------------------------------------
 "
 
+echo "HL_USER_USERNAME=$HL_USER_USERNAME" > /etc/hluser
+echo "HL_USER_GROUPNAME=`id -g -n $HL_USER_USERNAME`" >> /etc/hluser
+
 

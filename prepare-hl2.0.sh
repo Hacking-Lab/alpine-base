@@ -17,7 +17,7 @@ cp -rf ./root/ ./deploy/
 cp ./Dockerfile ./deploy
 cp ./UUID.env ./deploy/$id.env
 cp ./UUID.gn ./deploy/$id.gn
-sed -i -e "s/UUID/$id/g" docker-compose.yml
+cat docker-compose.yml | sed "s/UUID/$id/g" | tee docker-compose-$id.yml 
 cd ./deploy
 tar -cvzf dockerfiles.tar.gz *
 rm Dockerfile
@@ -26,4 +26,3 @@ rm $id.env
 rm $id.gn
 cd ..
 ls -al ./deploy 
-cat docker-compose.yml

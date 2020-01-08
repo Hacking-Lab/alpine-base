@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  alpine-base-hobo:
+    image: REGISTRY_BASE_URL/alpine-base:latest
+    hostname: 'hobo'
+    environment:
+      - "domainname=idocker.REALM_DOMAIN_SUFFIX"
+    env_file:
+      - ./UUID.env
+    volumes:
+      - ./UUID.gn:/goldnugget/UUID.gn
+    ports:
+      - 80:80
