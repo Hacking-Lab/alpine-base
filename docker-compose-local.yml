@@ -14,5 +14,6 @@ services:
       - ./UUID.env
     volumes:
       - ./UUID.gn:/goldnugget/UUID.gn
+    ports:
+      - 80:80
 
-      
