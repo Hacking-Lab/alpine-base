@@ -6,10 +6,6 @@ services:
     hostname: 'hobo'
     environment:
       - "domainname=idocker.REALM_DOMAIN_SUFFIX"
-    labels:
-      - "traefik.port=80"
-      - "traefik.frontend.rule=Host:hobo.REALM_DOMAIN_SUFFIX"
-      - "traefik.protocol=http"
     env_file:
       - ./UUID.env
     volumes:
