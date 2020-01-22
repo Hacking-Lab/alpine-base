@@ -43,7 +43,7 @@ else
    echo "\$HL_USER_USERNAME is set in environment variable"
   if [ "$HL_USER_USERNAME" == "root" ]; then
     echo "HL_USER_USERNAME=root"
-    echo 'root:$pwd2' | chpasswd
+    echo "root:$pwd2" | chpasswd
   else
     echo "\$HL_USER_USERNAME is set and not root"
     adduser -D -u 2000 $HL_USER_USERNAME
