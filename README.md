@@ -11,13 +11,18 @@ This is the alpine base image of the Hacking-Lab CTF system
 
 ## Build & Test
 1. `bash build.sh`
-2. `docker-compse -f docker-compose-local.yml up`
+2. `docker-compose up`
 3. base image is not providing any service
 
+## USER SETTINGS
+You can define the user that will being created in the docker. Please define these env variables in the docker-compose.yml file
 
-## Testing only (without building)
-1. `docker pull hackinglab/alpine-nginx:latest`
-2. `docker-compose -f docker-compose-local.yml up`
-3. base image is not providing any service 
+* HL_USER_USERNAME=????
+* HL_USER_PASSWORD=????
+* HL_ROOT_PASSWORD=????
+
+
+If you do not set these env variables, the base image will create the user "hacker" with the uid 2000 and random passwords (for both, hacker and root)
+
 
 

@@ -1,19 +1,11 @@
 version: '3.4'
 
 services:
-  alpine-base-hobo:
+  alpine-base:
     build: .
-    image: REGISTRY_BASE_URL/alpine-base:latest
-    hostname: 'hobo'
+    image: hackinglab/alpine-base:3.2
     environment:
-      - "domainname=idocker.REALM_DOMAIN_SUFFIX"
-    labels:
-      - "traefik.port=80"
-      - "traefik.frontend.rule=Host:hobo.REALM_DOMAIN_SUFFIX"
-      - "traefik.protocol=http"
-    env_file:
-      - ./UUID.env
-    volumes:
-      - ./UUID.gn:/goldnugget/UUID.gn
+      - HL_USER_USERNAME=hacker
+      - HL_USER_PASSWORD=compass
+      - HL_ROOT_PASSWORD=<change-me>
 
-      
