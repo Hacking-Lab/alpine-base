@@ -1,0 +1,15 @@
+version: '3.6'
+
+services:
+  alpine-base:
+    build: .
+    image: hackinglab/alpine-base:3.2
+    environment:
+    - AUTHOR=e1
+    - USERNAME=hracker
+    labels:
+      - "traefik.port=80"
+      - "traefik.frontend.rule=Host:alpine-base.idocker.hacking-lab.com"
+      - "traefik.protocol=http"
+
+
