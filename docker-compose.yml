@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   alpine-base-hobo:
+    build: .
     image: REGISTRY_BASE_URL/alpine-base:latest
     hostname: 'hobo'
     environment:
