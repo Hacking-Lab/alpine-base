@@ -12,4 +12,4 @@ fi
 
 mkdir -p `dirname $GO_DNSMASQ_LOG_FILE`
 
-
+mkdir -p /var/log/go-dnsmasq/
