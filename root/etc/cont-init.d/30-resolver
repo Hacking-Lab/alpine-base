@@ -10,6 +10,4 @@ if [ -z "$GO_DNSMASQ_RUNAS" ]; then
     printf "go-dnsmasq" > /var/run/s6/container_environment/GO_DNSMASQ_RUNAS
 fi
 
-mkdir -p `dirname $GO_DNSMASQ_LOG_FILE`
-
 mkdir -p /var/log/go-dnsmasq/
