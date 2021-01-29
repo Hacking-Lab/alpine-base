@@ -2,7 +2,6 @@ FROM alpine:latest
 MAINTAINER Ivan Buetler <ivan.buetler@compass-security.com>
 
 # Add s6-overlay
-# PREVIOUS ENV S6_OVERLAY_VERSION=v1.22.1.0 \
 ENV S6_OVERLAY_VERSION=v2.2.0.1 \
     GO_DNSMASQ_VERSION=1.0.7
 
