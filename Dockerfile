@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.13
 MAINTAINER Ivan Buetler <ivan.buetler@compass-security.com>
 
 # Add s6-overlay
