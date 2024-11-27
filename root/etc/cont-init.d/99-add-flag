@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
+#!/command/with-contenv bash
 
 GN_FILE=$(ls /goldnugget/*.gn)
 DEPLOY_FILE=/flag-deploy-scripts/deploy-file-flag.sh

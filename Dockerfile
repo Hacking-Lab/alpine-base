@@ -1,21 +1,25 @@
-FROM alpine:3.13
-MAINTAINER Ivan Buetler <ivan.buetler@compass-security.com>
+FROM alpine:latest
+LABEL maintainer="Ivan Buetler <ivan.buetler@hacking-lab.com>"
 
 # Add s6-overlay
-ENV S6_OVERLAY_VERSION=v2.2.0.3 \
-    GO_DNSMASQ_VERSION=1.0.7
+#ENV S6_OVERLAY_VERSION=3.1.6.2
+ENV S6_OVERLAY_VERSION=3.2.0.2
 
-RUN apk add --update --no-cache bind-tools curl libcap bash net-tools openssl pwgen && \ 
-	apk upgrade --available && \
-	curl -sSL https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz | tar xfz - -C /  && \
-	curl -sSL https://github.com/janeczku/go-dnsmasq/releases/download/${GO_DNSMASQ_VERSION}/go-dnsmasq-min_linux-amd64 -o /bin/go-dnsmasq && \
-	chmod +x /bin/go-dnsmasq && \
-	addgroup go-dnsmasq && \
-	adduser -D -g "" -s /bin/sh -G go-dnsmasq go-dnsmasq && \
-	setcap CAP_NET_BIND_SERVICE=+eip /bin/go-dnsmasq && \
-	rm -rf /var/cache/apk/*
+# Use BuildKit to help translate architecture names
+ARG TARGETPLATFORM
 
-COPY root /
+RUN case "${TARGETPLATFORM}" in \
+         "linux/amd64")  S6_ARCH=s6-overlay-x86_64.tar.xz ;; \
+         "linux/arm64")  S6_ARCH=s6-overlay-aarch64.tar.xz ;; \
+         *) exit 1 ;; \
+    esac; \
+    echo "${TARGETPLATFORM} -> ${S6_ARCH}" > /etc/hl-arch.txt && \ 
+    apk add --update --no-cache bind-tools curl libcap bash net-tools openssl pwgen xz sudo && \ 
+    apk upgrade --available && \
+    curl -sSL https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz | tar -Jxpf - -C /  && \
+    curl -sSL https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/${S6_ARCH} | tar -Jxpf - -C /  && \
+    rm -rf /var/cache/apk/*
+
+ADD root /
 
 ENTRYPOINT ["/init"]
-CMD []
