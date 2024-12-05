@@ -1,4 +1,4 @@
-#!/command/with-contenv bash
+#!/usr/bin/with-contenv bash
 
 pwd1=`openssl rand -base64 18`
 pwd2=`openssl rand -base64 18`
@@ -63,4 +63,5 @@ User gid:    $(id -g $HL_USER_USERNAME)
 
 echo "HL_USER_USERNAME=$HL_USER_USERNAME" > /etc/hluser
 echo "HL_USER_GROUPNAME=`id -g -n $HL_USER_USERNAME`" >> /etc/hluser
+
 
